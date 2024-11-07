@@ -2,7 +2,11 @@ replicaCount: 5
 
 image:
   repository: elitamsut/helloworld-expressjs
+<<<<<<< HEAD
   tag: "v1.0.7"
+=======
+  tag: "v1.0.1-dev"
+>>>>>>> a6633c5 (add values file)
   pullPolicy: IfNotPresent
 
 service:
