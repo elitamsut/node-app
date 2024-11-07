@@ -29,4 +29,3 @@ Thumbs.db
 # Secrets or sensitive files
 secrets/
 *.env
-
