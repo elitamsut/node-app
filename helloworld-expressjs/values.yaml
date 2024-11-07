@@ -11,4 +11,4 @@ service:
 
 env:
   LISTEN_PORT: 3000
-  APP_NAME: "Helloworld ExpressJS App"
+  APP_NAME: "Helloworld ExpressJS App eli"
