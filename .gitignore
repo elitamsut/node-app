@@ -1,0 +1,19 @@
+# Ignore tarballs
+*.tgz
+
+# Ignore deployment logs
+*.log
+
+# Ignore node_modules (if relevant)
+node_modules/
+
+# Ignore Docker-related files (if applicable)
+Dockerfile
+
+# Ignore Helm chart build artifacts
+/helloworld-expressjs/Chart.yaml
+/helloworld-expressjs/values.yaml
+/helloworld-expressjs/templates/*.yaml
+
+# Ignore README if not relevant for tracking
+README.md
