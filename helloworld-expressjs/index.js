@@ -4,7 +4,7 @@ var app = express();
 var appName = process.env.APP_NAME || "[not set]";
 
 app.get('/', function(req, res){
-    res.send("Hello World, welcome to " + appName);
+    res.send("Hello World, welcome to Prod" + appName);
 });
 
 app.listen(port);
