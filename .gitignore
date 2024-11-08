@@ -1,19 +1,31 @@
-# Ignore tarballs
-*.tgz
+# Node.js dependencies
+/node_modules/
 
-# Ignore deployment logs
+# Build output
+/dist/
+/build/
+
+# Helm chart build artifacts
+*.tgz
+/helloworld-expressjs-0.1.0.tgz
+
+# Local Kubernetes config
+/.kube/
+
+# Logs
 *.log
 
-# Ignore node_modules (if relevant)
-node_modules/
+# Temporary files
+*.swp
+*.bak
 
-# Ignore Docker-related files (if applicable)
-Dockerfile
+# System files
+.DS_Store
+Thumbs.db
 
-# Ignore Helm chart build artifacts
-/helloworld-expressjs/Chart.yaml
-/helloworld-expressjs/values.yaml
-/helloworld-expressjs/templates/*.yaml
+# ArgoCD config files
+*.yaml
 
-# Ignore README if not relevant for tracking
-README.md
+# Secrets or sensitive files
+secrets/
+*.env
