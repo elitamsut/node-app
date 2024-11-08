@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "helloworld-expressjs.fullname" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "helloworld-expressjs.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "helloworld-expressjs.name" . }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          env:
+            - name: LISTEN_PORT
+              value: "{{ .Values.env.LISTEN_PORT }}"
+            - name: APP_NAME
+              value: "{{ .Values.env.APP_NAME }}"

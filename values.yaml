@@ -1,8 +1,8 @@
-replicaCount: 1
+replicaCount: 5
 
 image:
   repository: elitamsut/helloworld-expressjs
-  tag: "v1.0.1-dev"
+  tag: "v1.0.7"
   pullPolicy: IfNotPresent
 
 service:
@@ -11,5 +11,4 @@ service:
 
 env:
   LISTEN_PORT: 3000
-  APP_NAME: "Helloworld ExpressJS App Prod"
-
+  APP_NAME: "Helloworld ExpressJS App Prod2024"
