@@ -1,31 +1,3 @@
-# Node.js dependencies
-/node_modules/
-
-# Build output
-/dist/
-/build/
-
-# Helm chart build artifacts
-*.tgz
-/helloworld-expressjs-0.1.0.tgz
-
-# Local Kubernetes config
-/.kube/
-
-# Logs
-*.log
-
-# Temporary files
-*.swp
-*.bak
-
-# System files
+.idea
 .DS_Store
-Thumbs.db
-
-# ArgoCD config files
-*.yaml
-
-# Secrets or sensitive files
-secrets/
-*.env
+node_modules
