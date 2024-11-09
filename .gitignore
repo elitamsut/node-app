@@ -1,4 +1,5 @@
-.tgz
+*.tgz
+@*
 argocd
 .idea
 .DS_Store
