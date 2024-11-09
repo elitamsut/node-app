@@ -3,10 +3,10 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - node-app
+      - develop  # Trigger the workflow on pushes to the 'develop' branch
   pull_request:
     branches:
-      - node-app
+      - develop  # Trigger the workflow for pull requests targeting 'develop'
 
 env:
   IMAGE_CONFIG: 'image-config.yaml'  # Path to your image configuration file
@@ -21,8 +21,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
         with:
-          ssh-key: ${{ secrets.GITHUB_SSH_KEY }}
-          ref: 'test'
+          ref: 'develop'  # Checkout the 'develop' branch
 
       # Set up Docker Buildx
       - name: Set up Docker Buildx
@@ -48,8 +47,4 @@ jobs:
       - name: Push Docker Image
         run: |
           echo "Pushing Docker image: ${{ env.DOCKER_IMAGE }}:${{ env.IMAGE_TAG }}"
-          docker push ${{ env.DOCKER_IMAGE }}:${{ env.IMAGE_TAG }}
-
-      # Notify Success
-      - name: Notify Success
-        run: echo "Docker image creation and push completed successfully!"
+  
