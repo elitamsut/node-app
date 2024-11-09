@@ -46,6 +46,6 @@ jobs:
       # Push Docker Image
       - name: Push Docker Image
         run: |
-          echo "Pushing Docker image: ${{ env.DOCKER_IMAGE }}:${TAG}"
-          docker push ${{ env.DOCKER_IMAGE }}:${TAG}  # Use the correct tag to push the image
+          echo "Pushing Docker image: ${{ env.DOCKER_IMAGE }}:${{ env.IMAGE_TAG }}"
+          docker push ${{ env.DOCKER_IMAGE }}:${{ env.IMAGE_TAG }}  # Use the IMAGE_TAG from GitHub environment
 
