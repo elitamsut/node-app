@@ -2,7 +2,7 @@ replicaCount: 3
 
 image:
   repository: elitamsut/helloworld-expressjs
-  tag: "v1.0.10"
+  tag: "v1.0.7"
   pullPolicy: IfNotPresent
 
 service:
