@@ -4,8 +4,6 @@ var app = express();
 var appName = process.env.APP_NAME || "[not set]";  // This should use the APP_NAME environment variable
 
 app.get('/', function(req, res){
-    res.send("Hello World, welcome to Prod" + appName);
+    res.send("Hello World, welcome to " + appName);
 });
 
-app.listen(port);
-console.log('Express started on port ' + port);
