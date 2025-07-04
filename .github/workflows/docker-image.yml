@@ -1,51 +1,53 @@
-name: CI Pipeline
+name: CI Pipeline
 
 on:
   push:
-    branches:
-      - develop  # Trigger the workflow on pushes to the 'develop' branch
+    branches: [develop]           # build on pushes to develop
   pull_request:
-    branches:
-      - develop  # Trigger the workflow for pull requests targeting 'develop'
+    branches: [develop]           # and on PRs targeting develop
 
 env:
-  IMAGE_CONFIG: 'image-config.yaml'  # Path to your image configuration file
-  DOCKER_IMAGE: 'elitamsut/helloworld-expressjs'  # Your custom Docker image name
+  IMAGE_CONFIG: image-config.yaml # where the Docker tag lives
+  DOCKER_IMAGE: elitamsut/helloworld-expressjs
 
 jobs:
-  build:
+  build-and-push:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout Code
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      # 1 | Code checkout – Node 20‑ready
+      - name: Checkout code
+        uses: actions/checkout@v4      # Node 20 ✔️ :contentReference[oaicite:0]{index=0}
         with:
-          ref: 'develop'  # Checkout the 'develop' branch
+          ref: develop
 
-      # Set up Docker Buildx
+      # 2 | (Optional) guarantee yq is present
+      - name: Install yq
+        run: sudo snap install yq
+
+      # 3 | Buildx builder – Node 20‑ready
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3    # Node 20 ✔️ :contentReference[oaicite:1]{index=1}
 
-      # Build Docker Image
-      - name: Build Docker Image
+      # 4 | Build the image and expose its tag
+      - name: Build Docker image
         id: build
         run: |
-          TAG=$(yq eval '.image.tag' $IMAGE_CONFIG)  # Get the tag from image-config.yaml
-          echo "Building Docker image with tag: ${TAG}"
-          docker build --pull -t ${{ env.DOCKER_IMAGE }}:${TAG} .
-          echo "IMAGE_TAG=${TAG}" >> $GITHUB_ENV  # Store the image tag in an environment variable
+          TAG=$(yq '.image.tag' "$IMAGE_CONFIG")
+          echo "Building image with tag: $TAG"
+          docker build --pull -t "$DOCKER_IMAGE:$TAG" .
+          echo "TAG=$TAG" >> "$GITHUB_ENV"        # for future shell steps
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"     # for expression syntax
 
-      # Log in to Docker Hub
+      # 5 | Log‑in to Docker Hub – Node 20‑ready
       - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3              # Node 20 ✔️ :contentReference[oaicite:2]{index=2}
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Push Docker Image
-      - name: Push Docker Image
+      # 6 | Push the image
+      - name: Push Docker image
         run: |
-          echo "Pushing Docker image: ${{ env.DOCKER_IMAGE }}:${{ env.IMAGE_TAG }}"
-          docker push ${{ env.DOCKER_IMAGE }}:${{ env.IMAGE_TAG }}  # Use the IMAGE_TAG from GitHub environment
-
+          echo "Pushing $DOCKER_IMAGE:${TAG}"
+          docker push "$DOCKER_IMAGE:${TAG}"
